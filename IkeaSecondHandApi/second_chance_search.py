@@ -1,13 +1,13 @@
 import requests
 
 
-def searchSecondChance(searchTerm, storeId="088", countryCode="nl"):
+def searchSecondChance(searchTerm, country_constant, storeIds=[]):
     found_items = []
     page = 0
     response_has_content = True
     
     while(response_has_content):
-        request_Url = f"https://web-api.ikea.com/circular/circular-asis/api/public/offers/{countryCode}/{countryCode}?size=16&stores={storeId}&search={searchTerm}&page={page}"
+        request_Url = f"https://web-api.ikea.com/circular/circular-asis/api/public/offers/{country_constant}?size=16&stores={storeIds}&search={searchTerm}&page={page}"
         response = requests.get(request_Url)
         response_code = response.status_code
 

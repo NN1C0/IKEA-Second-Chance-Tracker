@@ -1,0 +1,10 @@
+{% for item in items %}
+<li>
+    <a class="dropdown-item" href="#">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{item.id}}" id="{{item.id}}" name={{data_name}} />
+            <label class="form-check-label" for="{{item.id}}">{{item.name}}</label>
+        </div>
+    </a>
+</li>
+{% endfor %}
