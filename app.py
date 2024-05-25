@@ -31,6 +31,8 @@ def available_stores():
     if request.args.getlist("country"):
         country_list = request.args.getlist("country")
         return render_template("blocks/dropdown.html.j2", items=ikea_stores.getStoreIds(country_list), data_name="store")
+    
+    return render_template("blocks/dropdown.html.j2")
 
 if __name__ == '__main__':
     app.run(debug=True)
