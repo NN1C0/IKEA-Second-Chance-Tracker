@@ -2,13 +2,19 @@
     <thead>
         <tr>
             <th>Item</th>
-            <th>Price</th>
+            <th>Original Price</th>
+            <th>Discounted Price</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
-        {% for resulst in search_results%}
-
-        {% enfor %}
+        {% for result in search_results %}
+        <tr>
+            <td>{{result.Offers.title}}</td>
+            <td>{{result.Offers.article_price}}</td>
+            <td>{{result.Offers.price}}</td>
+            <td>{{result.Offers.description}}</td>
+        </tr>
+        {% endfor %}
     </tbody>
 </table>
