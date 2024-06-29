@@ -6,3 +6,5 @@ if ENV == 'dev':
 
 DEBUG = os.getenv("DEBUG", 'False')
 DATABASE_URL = os.getenv("DATABASE_URL")
+if "postgres" in DATABASE_URL:
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://")
