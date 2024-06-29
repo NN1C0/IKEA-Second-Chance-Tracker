@@ -1,20 +1,9 @@
-import configparser
+import configparser, dotenv, os
 from sqlalchemy import create_engine
+from Config.config import DATABASE_URL
 
 def getDatabaseEngine():
-    config = configparser.ConfigParser()
-    config.read("config/credentials.ini")
-    db_host = config["Database"]["db_host"]
-    db_user = config["Database"]["db_user"]
-    db_password = config["Database"]["db_password"]
-
-
-    return create_engine(f"mysql://{db_user}:{db_password}@{db_host}:3306/ikea_second_chance")
+    return create_engine(get_database_uri())
 
 def get_database_uri() -> str:
-    config = configparser.ConfigParser()
-    config.read("config/credentials.ini")
-    db_host = config["Database"]["db_host"]
-    db_user = config["Database"]["db_user"]
-    db_password = config["Database"]["db_password"]
-    return f"mysql://{db_user}:{db_password}@{db_host}:3306/ikea_second_chance"
+    return DATABASE_URL
