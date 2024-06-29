@@ -48,8 +48,7 @@ def searchSecondChance(searchTerm, country_constant, store_ids, debug=False):
                 response_has_content = False
 
             if debug:
-                print(f"Page: {page}/{total_pages}")
-                print(f"Offers: {len(found_items)}")
+                print(f"Country: {country_constant} \t| Page: {page}/{total_pages} \t| Offers: {len(found_items)}")
         else:
             response_has_content = False
         page += 1

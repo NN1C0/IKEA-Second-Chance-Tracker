@@ -1,7 +1,7 @@
-from sqlalchemy import create_engine, text, select
-from sqlalchemy.dialects.mysql import insert
+from sqlalchemy import create_engine, text, select, insert
+from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import Session
-import configparser
+import configparser, logging
 
 from utils import database_handler
 from IkeaSecondHandApi import ikea_stores, second_chance_search
@@ -31,15 +31,20 @@ def updateStoresInDatabase():
                                                         country=country_id[0],
                                                         name=s["name"],
                                                         display_name = s["display_name"])
-                    on_duplicate_key_stmt = insert_stmt.on_duplicate_key_update(
-                        store_id=insert_stmt.inserted.store_id
+                    
+                    on_duplicate_key_stmt = insert_stmt.on_conflict_do_update(
+                        index_elements=['store_id'],
+                        set_={
+                            Stores.store_id: s["id"],
+                            Stores.name: s["name"],
+                            Stores.display_name: s["display_name"]
+                        }
                     )
                     session.execute(on_duplicate_key_stmt)
-
                 updateArticlesInDatabase(session, c["id"], stores)
                 session.commit()
         except Exception as e:
-            print(e)
+            logging.error(e)
 
 def updateArticlesInDatabase(session, country_locale, stores):
     try:
@@ -47,7 +52,7 @@ def updateArticlesInDatabase(session, country_locale, stores):
         products = second_chance_search.searchSecondChance("", country_locale, store_ids, debug=True)
         session.execute(insert(Offers), products)
     except Exception as e:
-        print(e)
+        logging.error(e)
 
 
 if __name__ == "__main__":
