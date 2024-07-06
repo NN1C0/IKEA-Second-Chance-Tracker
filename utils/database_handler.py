@@ -1,9 +1,14 @@
-import configparser, dotenv, os
+import logging
 from sqlalchemy import create_engine
 from Config.config import DATABASE_URL
 
 def getDatabaseEngine():
-    return create_engine(get_database_uri())
+    try:
+        engine = create_engine(get_database_uri())
+        return engine
+    except Exception as e:
+        logging.error(e)
+        return None
 
 def get_database_uri() -> str:
     return DATABASE_URL

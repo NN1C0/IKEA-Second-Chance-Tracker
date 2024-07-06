@@ -1,5 +1,9 @@
 import requests
+from sqlalchemy import select
+from sqlalchemy.orm import Session
 
+from models.offers import Offers
+from utils import database_handler
 
 def searchSecondChance(searchTerm, country_constant, store_ids, debug=False):
     """
@@ -54,6 +58,12 @@ def searchSecondChance(searchTerm, country_constant, store_ids, debug=False):
         page += 1
 
     return found_items
+
+def searchLocalDatabase(search_term, store_ids, debug=False):
+        db_engine = database_handler.getDatabaseEngine()
+        with Session(db_engine) as db:
+            search_result = db.execute(select(Offers).where(Offers.store_id.in_(store_ids), Offers.title.like(f'%{search_term}%')))
+            return search_result.all()
 
 def __response_item_to_dict(item) -> dict:
     return{"id": item["id"],
