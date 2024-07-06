@@ -1,12 +1,11 @@
 import requests
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from IkeaSecondHandApi import local_constants
 from models.countries import Countries
 from utils import database_handler
 
 
-def getStoreIds(country_constants=["nl/nl"]):
+def getStoreIds(country_constants):
     stores = []
     for country in country_constants:
         request_url = f"https://www.ikea.com/{country}/meta-data/navigation/stores.json"

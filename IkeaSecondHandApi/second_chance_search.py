@@ -3,7 +3,7 @@ import requests
 
 def searchSecondChance(searchTerm, country_constant, store_ids, debug=False):
     """
-    Search for items on the IKEA "As-Is" section using the IKEA API.
+    Search for items on the IKEA "Second Chance" section using the IKEA API.
 
     This function queries the IKEA API directly for the "As-Is" section offers based on the provided search term, country, and store IDs. 
     Note that it cannot be used to search across multiple countries simultaneously.

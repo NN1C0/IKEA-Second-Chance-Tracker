@@ -165,3 +165,4 @@ cython_debug/
 
 credentials.ini
 .tmp.driveupload
+database
