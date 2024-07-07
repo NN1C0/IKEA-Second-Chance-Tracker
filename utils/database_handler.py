@@ -7,7 +7,7 @@ def getDatabaseEngine():
         engine = create_engine(get_database_uri())
         return engine
     except Exception as e:
-        logging.error(e)
+        logging.exception(e)
         return None
 
 def get_database_uri() -> str:
